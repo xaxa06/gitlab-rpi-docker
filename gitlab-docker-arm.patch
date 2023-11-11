@@ -1,0 +1,33 @@
+diff --git a/docker/Dockerfile b/docker/Dockerfile
+index 9d81ae1cc..86653147d 100644
+--- a/docker/Dockerfile
++++ b/docker/Dockerfile
+@@ -1,6 +1,10 @@
+ FROM ubuntu:22.04
+ MAINTAINER GitLab Inc. <support@gitlab.com>
+ 
++ARG RELEASE_PACKAGE
++ARG RELEASE_VERSION
++ARG RELEASE_ARCH
++
+ SHELL ["/bin/sh", "-c"]
+ 
+ # Default to supporting utf-8
+@@ -16,6 +20,7 @@ RUN apt-get update -q \
+       wget \
+       perl \
+       libperl5.34 \
++      libatomic1 \
+     && rm -rf /var/lib/apt/lists/*
+ 
+ # Use BusyBox
+diff --git a/docker/RELEASE b/docker/RELEASE
+new file mode 100644
+index 000000000..8a322a838
+--- /dev/null
++++ b/docker/RELEASE
+@@ -0,0 +1,4 @@
++RELEASE_PACKAGE=${RELEASE_PACKAGE}
++RELEASE_VERSION=${RELEASE_VERSION}
++RELEASE_ARCH=${RELEASE_ARCH}
++DOWNLOAD_URL=https://packages.gitlab.com/gitlab/raspberry-pi2/packages/raspbian/bullseye/${RELEASE_PACKAGE}_${RELEASE_VERSION}_${RELEASE_ARCH}.deb/download.deb
